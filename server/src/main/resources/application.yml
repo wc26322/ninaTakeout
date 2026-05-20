@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: ${nina.datasource.driver-class-name}
+      url: jdbc:mysql://${nina.datasource.host}:${nina.datasource.port}/${nina.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${nina.datasource.username}
+      password: ${nina.datasource.password}
+  redis:
+    host: ${nina.redis.host}
+    port: ${nina.redis.port}
+    password: ${nina.redis.password}
+    database: ${nina.redis.database}
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.nina.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      nina:
+        mapper: debug
+        service: info
+        controller: info
+
+nina:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: itcast
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+
+
+    user-secret-key: itheima
+    user-ttl: 7200000
+    user-token-name: authentication
+  alioss:
+    endpoint: ${nina.alioss.endpoint}
+    access-key-id: ${nina.alioss.access-key-id}
+    access-key-secret: ${nina.alioss.access-key-secret}
+    bucket-name: ${nina.alioss.bucket-name}
+  wechat:
+    appid: ${nina.wechat.appid}
+    secret: ${nina.wechat.secret}
+
+
